@@ -1,13 +1,14 @@
 import propTypes from 'prop-types';
+import { GalleryItem,Image  } from './ImageGalleryItem.styled';
 
 export const ImageGalleryItem = ({ image, onclick }) => (
-  <li id={image.id} onClick={onclick}>
-    <img
+  <GalleryItem id={image.id} onClick={onclick}>
+    <Image
       src={image.webformatURL}
       alt={image.tags}
       name={image.largeImageURL}
     />
-  </li>
+  </GalleryItem>
 );
 
 ImageGalleryItem.propTypes = {

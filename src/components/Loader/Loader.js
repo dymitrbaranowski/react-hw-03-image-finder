@@ -1,7 +1,8 @@
 import { Dna } from 'react-loader-spinner';
+import { LoaderContainer } from './Loader.styled';
 
 export const Loader = () => (
-  <div>
+  <LoaderContainer>
     <Dna
       visible={true}
       height="80"
@@ -10,5 +11,5 @@ export const Loader = () => (
       wrapperStyle={{}}
       wrapperClass="dna-wrapper"
     />
-  </div>
+  </LoaderContainer>
 );
