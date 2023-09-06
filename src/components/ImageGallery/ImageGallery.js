@@ -1,12 +1,13 @@
 import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
 import propTypes from 'prop-types';
+import { ImageList } from './ImageGallery.styled';
 
 export const ImageGallery = ({ images, onImageClick }) => (
-  <ul>
+  <ImageList>
     {images.map((image, index) => (
       <ImageGalleryItem onclick={onImageClick} image={image} key={index} />
     ))}
-  </ul>
+  </ImageList>
 );
 
 ImageGallery.propTypes = {

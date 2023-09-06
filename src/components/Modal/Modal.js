@@ -1,11 +1,12 @@
 import propTypes from 'prop-types';
+import { ModalContainer, ModalOverlay } from './Modal.styled';
 
 export const Modal = ({ src, alt, handleClose }) => (
-  <div onClick={handleClose}>
-    <div>
+  <ModalOverlay onClick={handleClose}>
+    <ModalContainer>
       <img src={src} alt={alt} />
-    </div>
-  </div>
+    </ModalContainer>
+  </ModalOverlay>
 );
 
 Modal.propTypes = {
