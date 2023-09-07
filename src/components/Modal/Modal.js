@@ -14,3 +14,4 @@ Modal.propTypes = {
   alt: propTypes.string.isRequired,
   handleClose: propTypes.func.isRequired,
 };
+
