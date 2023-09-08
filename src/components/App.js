@@ -1,11 +1,12 @@
 import { Component } from 'react';
-import { Searchbar } from './Searchbar/Searchbar';
-import { fetchImages } from './api/fetchImages';
+import * as API from './api/fetchImages';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Button } from './Button/Button';
 import { Loader } from './Loader/Loader';
-import { Modal } from './Modal/Modal';
 import React from 'react';
+import { ToastContainer, toast, Slide } from 'react-toastify';
+import { Searchbar } from './Searchbar/Searchbar';
+import 'react-toastify/dist/ReactToastify.css';
 
 export class App extends Component {
   state = {
@@ -16,62 +17,62 @@ export class App extends Component {
     modalOpen: false,
     modalImg: '',
     modalAlt: '',
+    totalPages: 0,
   };
 
-  handleSubmit = async e => {
-    e.preventDefault();
-    this.setState({ isLoading: true });
-    const inputForSearch = e.target.elements.inputForSearch;
-    if (inputForSearch.value.trim() === '') {
-      return;
+  componentDidUpdate(_, prevState) {
+    if (
+      prevState.currentSearch !== this.state.currentSearch ||
+      prevState.pageNr !== this.state.pageNr
+    ) {
+      this.addImages();
     }
-    const response = await fetchImages(inputForSearch.value, 1);
+  }
+
+  addImages = async () => {
+    const { currentSearch, pageNr } = this.state;
+    try {
+      this.setState({ isLoading: true });
+      const data = await API.fetchImages(currentSearch, pageNr);
+
+      if (data.hits.length === 0) {
+        return toast.info('Sorry image not found...', {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      }
+
+      const normalizedImages = API.normalizedImages(data.hits);
+
+      this.setState(state => ({
+        images: [...state.images, ...normalizedImages],
+        isLoading: false,
+        error: '',
+        totalPages: Math.ceil(data.totalHits / 12),
+      }));
+    } catch (error) {
+      this.setState({ error: 'Something went wrong!' });
+    } finally {
+      this.setState({ isLoading: false });
+    }
+  };
+
+  handleSubmit = inputValue => {
     this.setState({
       images: [],
       isLoading: false,
-      // currentSearch: inputForSearch.value,
+      currentSearch: inputValue,
       pageNr: 1,
     });
   };
 
-  handleClickMore = async () => {
-    // const response = await fetchImages(
-    //   this.state.currentSearch,
-    //   this.state.pageNr + 1
-    // );
-    this.setState({
-      // images: [...this.state.images, ...response],
-      pageNr: this.state.pageNr + 1,
-    });
+  handleClickMore = () => {
+    this.setState(prevState => ({
+      pageNr: prevState.pageNr + 1,
+    }));
   };
-
-  handleImageClick = e => {
-    this.setState({
-      modalOpen: true,
-      modalAlt: e.target.alt,
-      modalImg: e.target.name,
-    });
-  };
-
-  handleModalClose = () => {
-    this.setState({
-      modalOpen: false,
-      modalImg: '',
-      modalAlt: '',
-    });
-  };
-
-  handleKeyDown = event => {
-    if (event.code === 'Escape') {
-      this.handleModalClose();
-    }
-  };
-
-  async componentDidMount() {
-    window.addEventListener('keydown', this.handleKeyDown);
-  }
 
   render() {
+    const { images, isLoading, pageNr, totalPages } = this.state;
     return (
       <div
         style={{
@@ -81,28 +82,64 @@ export class App extends Component {
           paddingBottom: '24px',
         }}
       >
-        {this.state.isLoading ? (
-          <Loader />
+        <ToastContainer transition={Slide} />
+        <Searchbar onSubmit={this.handleSubmit} />
+        {images.length > 0 ? (
+          <ImageGallery images={images} />
         ) : (
-          <React.Fragment>
-            <Searchbar onSubmit={this.handleSubmit} />
-            <ImageGallery
-              onImageClick={this.handleImageClick}
-              images={this.state.images}
-            />
-            {this.state.images.length > 0 ? (
-              <Button onClick={this.handleClickMore} />
-            ) : null}
-          </React.Fragment>
+          <p
+            style={{
+              padding: 100,
+              textAlign: 'center',
+              fontSize: 30,
+            }}
+          >
+            Image gallery is empty...
+          </p>
         )}
-        {this.state.modalOpen ? (
-          <Modal
-            src={this.state.modalImg}
-            alt={this.state.modalAlt}
-            handleClose={this.handleModalClose}
-          />
-        ) : null}
+        {isLoading && <Loader />}
+        {images.length > 0 && totalPages !== pageNr && !isLoading && (
+          <Button onClick={this.handleClickMore} />
+        )}
       </div>
     );
   }
 }
+
+export default App;
+
+//   render() {
+//     return (
+//       <div
+//         style={{
+//           display: 'grid',
+//           gridTemplateColumns: '1fr',
+//           gridGap: '16px',
+//           paddingBottom: '24px',
+//         }}
+//       >
+//         {this.state.isLoading ? (
+//           <Loader />
+//         ) : (
+//           <React.Fragment>
+//             <Searchbar onSubmit={this.handleSubmit} />
+//             <ImageGallery
+//               onImageClick={this.handleImageClick}
+//               images={this.state.images}
+//             />
+//             {this.state.images.length > 0 ? (
+//               <Button onClick={this.handleClickMore} />
+//             ) : null}
+//           </React.Fragment>
+//         )}
+//         {this.state.modalOpen ? (
+//           <Modal
+//             src={this.state.modalImg}
+//             alt={this.state.modalAlt}
+//             handleClose={this.handleModalClose}
+//           />
+//         ) : null}
+//       </div>
+//     );
+//   }
+// }
