@@ -29,7 +29,7 @@ export class App extends Component {
     this.setState({
       images: [],
       isLoading: false,
-      currentSearch: inputForSearch.value,
+      // currentSearch: inputForSearch.value,
       pageNr: 1,
     });
   };
