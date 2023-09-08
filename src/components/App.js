@@ -27,7 +27,7 @@ export class App extends Component {
     }
     const response = await fetchImages(inputForSearch.value, 1);
     this.setState({
-      images: response,
+      images: [],
       isLoading: false,
       currentSearch: inputForSearch.value,
       pageNr: 1,
@@ -35,12 +35,12 @@ export class App extends Component {
   };
 
   handleClickMore = async () => {
-    const response = await fetchImages(
-      this.state.currentSearch,
-      this.state.pageNr + 1
-    );
+    // const response = await fetchImages(
+    //   this.state.currentSearch,
+    //   this.state.pageNr + 1
+    // );
     this.setState({
-      images: [...this.state.images, ...response],
+      // images: [...this.state.images, ...response],
       pageNr: this.state.pageNr + 1,
     });
   };
