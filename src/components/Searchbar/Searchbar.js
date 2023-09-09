@@ -9,28 +9,6 @@ import {
   SearchSpan,
 } from './Searchbar.styled';
 
-// export const Searchbar = ({ onSubmit }) => (
-//   <SearchBar>
-//     <SerchForm onSubmit={onSubmit}>
-//       <SearchBtn type="submit">
-//         <span>Search</span>
-//       </SearchBtn>
-
-//       <Input
-//         name="inputForSearch"
-//         type="text"
-//         autoComplete="off"
-//         autoFocus
-//         placeholder="Search images and photos"
-//       />
-//     </SerchForm>
-//   </SearchBar>
-// );
-
-// Searchbar.propTypes = {
-//   onSubmit: propTypes.func,
-// };
-
 export class SearchBar extends Component {
   state = {
     seachName: '',
@@ -61,7 +39,6 @@ export class SearchBar extends Component {
             id="search"
             value={this.state.inputValue}
             onChange={this.handleChange}
-            autoFocus
             placeholder="Search images and photos"
           />
         </SearchForm>
