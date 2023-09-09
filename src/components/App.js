@@ -94,7 +94,7 @@ export class App extends Component {
               fontSize: 30,
             }}
           >
-            Image gallery is empty...
+            Gallery is empty...
           </p>
         )}
         {isLoading && <Loader />}
@@ -107,39 +107,3 @@ export class App extends Component {
 }
 
 export default App;
-
-//   render() {
-//     return (
-//       <div
-//         style={{
-//           display: 'grid',
-//           gridTemplateColumns: '1fr',
-//           gridGap: '16px',
-//           paddingBottom: '24px',
-//         }}
-//       >
-//         {this.state.isLoading ? (
-//           <Loader />
-//         ) : (
-//           <React.Fragment>
-//             <Searchbar onSubmit={this.handleSubmit} />
-//             <ImageGallery
-//               onImageClick={this.handleImageClick}
-//               images={this.state.images}
-//             />
-//             {this.state.images.length > 0 ? (
-//               <Button onClick={this.handleClickMore} />
-//             ) : null}
-//           </React.Fragment>
-//         )}
-//         {this.state.modalOpen ? (
-//           <Modal
-//             src={this.state.modalImg}
-//             alt={this.state.modalAlt}
-//             handleClose={this.handleModalClose}
-//           />
-//         ) : null}
-//       </div>
-//     );
-//   }
-// }
