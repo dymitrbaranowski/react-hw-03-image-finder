@@ -19,7 +19,7 @@ export const HeaderSearchBar = styled.header`
     0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 `;
 
-export const SerchForm = styled.form`
+export const SearchForm = styled.form`
   display: flex;
   align-items: center;
   width: 100%;
@@ -64,5 +64,5 @@ export const SerchFormBtnLabel = styled.span`
 `;
 
 export const SearchSpan = styled.span`
-  padding: 10px;
+  padding: 1px;
 `;

@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { BsSearch } from 'react-icons/bs';
 import PropTypes from 'prop-types';
 import {
   HeaderSearchBar,
@@ -30,7 +31,7 @@ import {
 //   onSubmit: propTypes.func,
 // };
 
-class SearchBar extends Component {
+export class SearchBar extends Component {
   state = {
     seachName: '',
     inputValue: '',
@@ -51,6 +52,7 @@ class SearchBar extends Component {
       <HeaderSearchBar>
         <SearchForm onSubmit={this.handleSubmit}>
           <SearchBtn>
+            <BsSearch />
             <SearchSpan>Search</SearchSpan>
           </SearchBtn>
           <Input
@@ -59,6 +61,8 @@ class SearchBar extends Component {
             id="search"
             value={this.state.inputValue}
             onChange={this.handleChange}
+            autoFocus
+            placeholder="Search images and photos"
           />
         </SearchForm>
       </HeaderSearchBar>
