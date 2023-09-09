@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const SearchBar = styled.header`
+export const HeaderSearchBar = styled.header`
   top: 0;
   left: 0;
   position: sticky;
@@ -61,4 +61,8 @@ export const SerchFormBtnLabel = styled.span`
   border: 0;
   font: inherit;
   font-size: 12px;
+`;
+
+export const SearchSpan = styled.span`
+  padding: 10px;
 `;
