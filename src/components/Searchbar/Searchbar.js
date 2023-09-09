@@ -11,7 +11,7 @@ import {
 
 export class SearchBar extends Component {
   state = {
-    seachName: '',
+    searchName: '',
     inputValue: '',
   };
   handleChange = event => {
