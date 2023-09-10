@@ -6,7 +6,7 @@ import { Loader } from './Loader/Loader';
 import React from 'react';
 import Modal from './Modal/Modal';
 import { ToastContainer, toast, Slide } from 'react-toastify';
-import { SearchBar } from './SearchBar/SearchBar';
+import { Searchbar } from './Searchbar/Searchbar';
 import 'react-toastify/dist/ReactToastify.css';
 
 export class App extends Component {
@@ -95,7 +95,7 @@ export class App extends Component {
         }}
       >
         <ToastContainer transition={Slide} />
-        <SearchBar onSubmit={this.handleSubmit} />
+        <Searchbar onSubmit={this.handleSubmit} />
         {images.length > 0 ? (
           <ImageGallery images={images} onItemClick={this.handleImageClick} />
         ) : (

@@ -9,7 +9,7 @@ import {
   SearchSpan,
 } from './Searchbar.styled';
 
-export class SearchBar extends Component {
+export class Searchbar extends Component {
   state = {
     searchName: '',
     inputValue: '',
@@ -47,7 +47,7 @@ export class SearchBar extends Component {
   }
 }
 
-SearchBar.propTypes = {
+Searchbar.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
 
